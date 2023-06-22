@@ -4,7 +4,7 @@
 #  Uses power and exponential trendlines (found in excel) to accurately estimate the weight of various types of alcohol  #
 #  -can be used for either individual ingredients or mixed drinks                                                        #
 #                                                                                                                        #
-#  Written by Camden Boren @ 2:45AM 5/5/2023                                                                             #
+#  Written by Camden Boren @ 9:08AM 6/15/2023                                                                             #
 #                                                                                                                        #
 #  This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not     #
 #  distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.                                       #
@@ -18,8 +18,8 @@ def alcoholWeight(alcoholType,percentage):
             or alcoholType == 'rum' or alcoholType == 'everclear' or alcoholType == 'grain alcohol'):
         alcoholNum = 1
         return 3062.9*pow(percentage,-1.161), alcoholNum
-    elif (alcoholType == 'flavored' or alcoholType == 'liquer' or alcoholType == 'baileys' or alcoholType == 'schnapps' 
-            or alcoholType == 'kahlua' or alcoholType == 'liqueur'):
+    elif (alcoholType == 'flavored' or alcoholType == 'liqueur' or alcoholType == 'baileys' or alcoholType == 'schnapps' 
+            or alcoholType == 'kahlua'):
         alcoholNum = 2
         return (235.94*math.exp(percentage*-.044)), alcoholNum
     elif (alcoholType == 'carbonated' or alcoholType == 'fermented' or alcoholType == 'beer' or alcoholType == 'wine' 
@@ -56,8 +56,10 @@ for i in range(numIngredients):
     weight, alcoholNum = alcoholWeight(alcoholType,percentage)
     weight = decimal.Decimal(str(weight))
     weight = float(weight.quantize(decimal.Decimal('.1'), rounding=decimal.ROUND_HALF_UP))
+    numWeight = decimal.Decimal(str(weight*numDrinks))
+    numWeight = float(numWeight.quantize(decimal.Decimal('.1'), rounding=decimal.ROUND_HALF_UP))
     if numIngredients == 1:
-        print(f'Weight of {numDrinks} standard unit(s) of {alcoholType} (of strength {percentage}%) is {numDrinks*weight}g\n')
+        print(f'Weight of {numDrinks} standard unit(s) of {alcoholType} (of strength {percentage}%) is {numWeight}g\n')
 
     # array insertions for mixed drinks
     if numIngredients > 1:
